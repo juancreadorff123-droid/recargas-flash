@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Cualquier cliente puede CREAR un pedido (hacer una compra),
+    // pero NADIE puede leer, editar ni borrar pedidos desde el navegador.
+    // Tú revisas los pedidos desde la consola de Firebase (con tu login).
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+  }
+}
